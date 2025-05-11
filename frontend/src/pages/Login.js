@@ -7,7 +7,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://your-backend-url.onrender.com/api/login", {
+      const response = await fetch("https://ecommerce-backend-vjir.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
