@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./Login.css"; // Import custom CSS for styling
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,6 +19,7 @@ function Login() {
       if (data.success) {
         alert("Login Successful!");
         console.log("User Data:", data.user);
+        navigate("/home"); // Redirect to Home page
       } else {
         alert(data.message);
       }
@@ -30,7 +33,7 @@ function Login() {
     <div className="login-container">
       <div className="login-card">
         <h2 className="login-title">Welcome Back</h2>
-        <p className="login-subtitle">Login to your account</p>
+        <p className="login-subtitle">Login to access your account</p>
         <form onSubmit={handleLogin}>
           {/* Email Input */}
           <div className="form-group">
