@@ -3,10 +3,20 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Example User Database
+// Example User Database with Hashed Passwords
 const users = [
-  { id: 1, email: 'admin@example.com', password: 'admin123', role: 'admin' },
-  { id: 2, email: 'customer@example.com', password: 'customer123', role: 'customer' }
+  {
+    id: 1,
+    email: 'admin@example.com',
+    password: bcrypt.hashSync('admin123', 10), // Hash the password
+    role: 'admin',
+  },
+  {
+    id: 2,
+    email: 'customer@example.com',
+    password: bcrypt.hashSync('customer123', 10), // Hash the password
+    role: 'customer',
+  },
 ];
 
 // Admin Login API
