@@ -8,7 +8,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://your-backend-url.onrender.com/api/register", {
+      const response = await fetch("https://ecommerce-backend-vjir.onrender.com/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
