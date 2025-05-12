@@ -36,14 +36,22 @@ app.post("/api/login", (req, res) => {
 
 // Register API
 app.post("/api/register", (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password, userType } = req.body;
 
+  // Check if the user already exists
   if (users.find((u) => u.email === email)) {
     res.status(400).json({ success: false, message: "User already exists" });
     return;
   }
 
-  const newUser = { id: Date.now(), name, email, password };
+  // Create a new user
+  const newUser = {
+    id: Date.now(),
+    name: `${firstName} ${lastName}`, // Combine firstName and lastName
+    email,
+    password,
+    userType, // Include userType (customer/admin)
+  };
   users.push(newUser);
 
   res.json({ success: true, message: "User registered successfully", user: newUser });
