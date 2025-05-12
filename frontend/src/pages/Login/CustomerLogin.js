@@ -61,7 +61,10 @@ function CustomerLogin() {
           </button>
         </form>
         <p className="login-footer">
-          Forgot your password? <a href="/forgot-password">Reset it here</a>.
+          <a href="/forgot-password">Forgot Password?</a>
+        </p>
+        <p className="login-footer">
+          Not Registered? <a href="/register">Register here</a>
         </p>
       </div>
     </div>
