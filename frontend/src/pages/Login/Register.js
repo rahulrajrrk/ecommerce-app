@@ -12,39 +12,44 @@ function Register() {
   });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+  // Validate passwords
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      // Handle non-200 responses
+      const errorData = await response.json();
+      alert(errorData.message || "Registration failed!");
       return;
     }
 
-    try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+    const data = await response.json();
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Account created successfully!");
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          userType: "customer",
-        });
-      } else {
-        alert(data.message || "Registration failed!");
-      }
-    } catch (error) {
-      alert("An error occurred. Please try again later.");
-    }
-  };
+    alert("Account created successfully!");
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      userType: "customer",
+    });
+  } catch (error) {
+    console.error("Error during registration:", error);
+    alert("An error occurred. Please try again later.");
+  }
+};
 
   return (
     <div className="register-container">
