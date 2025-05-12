@@ -17,14 +17,17 @@ function Navbar() {
             <Link to="/cart" className="navbar-link">Cart</Link>
           </li>
           <li>
-            <Link to="/order-tracking" className="navbar-link">Order Tracking</Link>
+            <Link to="/order-history" className="navbar-link">Order History</Link>
           </li>
           <li>
             <Link to="/login" className="navbar-link">Login</Link>
           </li>
           <li>
             <Link to="/register" className="navbar-link">Register</Link>
-          </li> {/* Added Register link */}
+          </li>
+          <li>
+            <Link to="/admin/login" className="navbar-link">Admin</Link>
+          </li>
         </ul>
       </div>
     </nav>
