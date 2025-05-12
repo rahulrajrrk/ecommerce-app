@@ -19,7 +19,12 @@
   text-align: center;
 }
 
-/* Form Groups */
+.login-card h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
 .form-group {
   margin-bottom: 20px;
   text-align: left;
@@ -38,7 +43,22 @@
   border-radius: 5px;
 }
 
-/* Login Button */
+/* Error and success messages */
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.message {
+  color: #28a745;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* Login button */
 .btn-login {
   width: 100%;
   padding: 10px;
@@ -46,11 +66,26 @@
   color: #fff;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
 }
 
 .btn-login:hover {
   background: #0056b3;
+}
+
+/* Footer links */
+.login-footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.login-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
 }
