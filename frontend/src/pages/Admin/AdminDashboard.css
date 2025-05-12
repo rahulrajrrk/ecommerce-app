@@ -1,0 +1,60 @@
+/* Admin Dashboard Container */
+.admin-dashboard-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.admin-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-dashboard-header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.admin-dashboard-header .logout-button {
+  padding: 10px 15px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.admin-dashboard-header .logout-button:hover {
+  background-color: #c82333;
+}
+
+/* Dashboard Cards */
+.dashboard-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dashboard-card {
+  flex: 1;
+  min-width: 200px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.dashboard-card h3 {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.dashboard-card p {
+  font-size: 1rem;
+  color: #555;
+}
