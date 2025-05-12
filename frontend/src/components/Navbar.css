@@ -9,13 +9,18 @@
   font-family: Arial, sans-serif;
 }
 
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .navbar-logo {
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-.navbar-links {
-  list-style: none;
+.navbar-actions {
   display: flex;
   gap: 20px;
 }
