@@ -3,22 +3,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 // Admin Pages
+import AdminLogin from "./pages/Login/AdminLogin";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
-import OrderTracking from "./pages/Admin/OrderTracking";
 import ProductManagement from "./pages/Admin/ProductManagement";
 import Reports from "./pages/Admin/Reports";
+import OrderTracking from "./pages/Admin/OrderTracking";
 
 // Customer Pages
+import CustomerLogin from "./pages/Login/CustomerLogin";
+import Register from "./pages/Login/Register";
+import ForgotPassword from "./pages/Login/ForgotPassword";
 import ProductListing from "./pages/Customer/ProductListing";
 import Cart from "./pages/Customer/Cart";
 import Checkout from "./pages/Customer/Checkout";
 import OrderHistory from "./pages/Customer/OrderHistory";
-
-// Login Pages
-import AdminLogin from "./pages/Login/AdminLogin";
-import CustomerLogin from "./pages/Login/CustomerLogin";
-import Register from "./pages/Login/Register";
-import ForgotPassword from "./pages/Login/ForgotPassword";
 
 function App() {
   return (
@@ -33,18 +31,16 @@ function App() {
         <Route path="/admin/order-tracking" element={<OrderTracking />} />
 
         {/* Customer Routes */}
+        <Route path="/login" element={<CustomerLogin />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/products" element={<ProductListing />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order-history" element={<OrderHistory />} />
 
-        {/* Login Pages */}
-        <Route path="/login" element={<CustomerLogin />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-
         {/* Default Route */}
-        <Route path="/" element={<ProductListing />} />
+        <Route path="/" element={<CustomerLogin />} />
       </Routes>
     </Router>
   );
