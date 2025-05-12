@@ -1,27 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaShoppingCart, FaUser } from "react-icons/fa"; // Import icons
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import "./Navbar.css";
 
 function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
+        {/* Left-Aligned Logo */}
         <div className="navbar-logo">
           <Link to="/" className="navbar-link">E-Commerce</Link>
         </div>
-        <ul className="navbar-links">
-          <li>
-            <Link to="/cart" className="navbar-link">
-              <FaShoppingCart /> Cart
-            </Link>
-          </li>
-          <li>
-            <Link to="/login" className="navbar-link">
-              <FaUser /> Login
-            </Link>
-          </li>
-        </ul>
+
+        {/* Right-Aligned Links */}
+        <div className="navbar-actions">
+          <Link to="/cart" className="navbar-link">
+            <FaShoppingCart /> Cart
+          </Link>
+          <Link to="/login" className="navbar-link">
+            <FaUser /> Login
+          </Link>
+        </div>
       </div>
     </nav>
   );
