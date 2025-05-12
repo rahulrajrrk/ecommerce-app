@@ -1,58 +1,37 @@
-/* Navbar container styles */
+/* General Navbar Styling */
 .navbar {
-  background-color: #007bff; /* Primary blue color */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #333;
+  color: white;
   padding: 10px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  font-family: Arial, sans-serif;
 }
 
-/* Navbar content alignment */
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
-/* Logo styling */
 .navbar-logo {
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: bold;
-  color: #fff;
-  text-transform: uppercase;
 }
 
-/* Link list styling */
 .navbar-links {
-  display: flex;
   list-style: none;
+  display: flex;
+  gap: 15px;
   margin: 0;
   padding: 0;
-  gap: 20px;
 }
 
-/* Individual link styling */
 .navbar-link {
+  color: white;
   text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #fff;
-  transition: color 0.3s ease;
+  font-size: 1em;
+  transition: color 0.3s;
 }
 
-/* Hover effect for links */
 .navbar-link:hover {
-  color: #ffe600; /* Yellow hover effect */
-}
-
-/* Responsive design for smaller screens */
-@media screen and (max-width: 768px) {
-  .navbar-links {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
+  color: #f0a500;
 }
