@@ -12,6 +12,17 @@
   color: #333;
 }
 
+/* Category section */
+.category-section {
+  margin-bottom: 30px;
+}
+
+.category-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #007bff;
+}
+
 /* Grid layout for products */
 .product-grid {
   display: grid;
@@ -59,7 +70,7 @@
 /* Add to Cart button */
 .add-to-cart-button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #28a745;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -69,5 +80,5 @@
 }
 
 .add-to-cart-button:hover {
-  background-color: #0056b3;
+  background-color: #218838;
 }
