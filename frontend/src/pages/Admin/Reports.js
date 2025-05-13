@@ -10,7 +10,7 @@ function Reports() {
   });
 
   useEffect(() => {
-    fetch("/api/admin/reports")
+    fetch("https://ecommerce-backend-vjir.onrender.com/api/admin/reports")
       .then((res) => res.json())
       .then((data) => setReports(data));
   }, []);
