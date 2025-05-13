@@ -3,33 +3,27 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 
-// Path to the user.txt file
-const filePath = path.join(__dirname, "../data/user.txt");
+// Path to the users.txt file (fixed the filename from user.txt to users.txt)
+const filePath = path.join(__dirname, "../data/users.txt");
 
 // Endpoint to handle user registration
 router.post("/", (req, res) => {
-  const { name, email, password, userType } = req.body;
-
-  // Validate input
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: "All fields are required." });
-  }
+  // ... existing code ...
 
   // Read existing users from the file
   fs.readFile(filePath, "utf8", (readErr, data) => {
     if (readErr && readErr.code !== "ENOENT") {
-      // If there's an error reading the file (other than the file not existing)
-      console.error("Error reading user.txt:", readErr);
-      return res.status(500).json({ message: "Internal server error." });
+      // ... existing code ...
     }
 
     // Parse existing users if the file exists
-    const users = data
-      ? data
-          .split("\n")
-          .filter((line) => line.trim() !== "") // Remove empty lines
-          .map((line) => JSON.parse(line)) // Parse each line as JSON
-      : [];
+    let users = [];
+    try {
+      users = data ? JSON.parse(data) : [];
+    } catch (parseErr) {
+      console.error("Error parsing users data:", parseErr);
+      return res.status(500).json({ message: "Internal server error." });
+    }
 
     // Check if the email already exists
     if (users.find((user) => user.email === email)) {
@@ -45,13 +39,13 @@ router.post("/", (req, res) => {
       userType: userType || "customer", // Default to "customer" if userType is not provided
     };
 
-    // Convert the new user object to a string
-    const userLine = `${JSON.stringify(newUser)}\n`;
+    // Add the new user to the array
+    users.push(newUser);
 
-    // Append the new user to the file
-    fs.appendFile(filePath, userLine, (writeErr) => {
+    // Write the entire array back to the file
+    fs.writeFile(filePath, JSON.stringify(users, null, 2), (writeErr) => {
       if (writeErr) {
-        console.error("Error writing to user.txt:", writeErr);
+        console.error("Error writing to users.txt:", writeErr);
         return res.status(500).json({ message: "Failed to register user." });
       }
 
