@@ -5,13 +5,13 @@ function OrderTracking() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch("/api/orders")
+    fetch("https://ecommerce-backend-vjir.onrender.com/api/orders")
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, []);
 
   const handleStatusUpdate = (orderId, newStatus) => {
-    fetch(`/api/orders/${orderId}`, {
+    fetch(`https://ecommerce-backend-vjir.onrender.com/api/orders/${orderId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus }),
