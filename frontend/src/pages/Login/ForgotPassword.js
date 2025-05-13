@@ -10,7 +10,7 @@ function ForgotPassword() {
     setMessage(""); // Clear previous messages
 
     try {
-      const response = await fetch("/api/forgot-password", {
+      const response = await fetch("https://ecommerce-backend-vjir.onrender.com/api/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
