@@ -10,7 +10,7 @@ function Checkout() {
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    fetch("/api/orders", {
+    fetch("https://ecommerce-backend-vjir.onrender.com/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
