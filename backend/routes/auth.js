@@ -1,48 +1,56 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Example User Database with Hashed Passwords
-const users = [
-  {
-    id: 1,
-    email: 'admin@example.com',
-    password: bcrypt.hashSync('admin123', 10), // Hash the password
-    role: 'admin',
-  },
-  {
-    id: 2,
-    email: 'customer@example.com',
-    password: bcrypt.hashSync('customer123', 10), // Hash the password
-    role: 'customer',
-  },
-];
+// Path to the users.txt file
+const filePath = path.join(__dirname, "../data/users.txt");
+
+// Helper function to read users from file
+const readUsers = () => {
+  try {
+    const data = fs.readFileSync(filePath, 'utf8');
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error("Error reading users:", error);
+    return [];
+  }
+};
 
 // Admin Login API
 router.post('/admin/login', async (req, res) => {
   const { email, password } = req.body;
-  const user = users.find((u) => u.email === email && u.role === 'admin');
+  const users = readUsers();
+  const user = users.find((u) => u.email === email && u.userType === 'admin');
+  
   if (!user) return res.status(400).json({ message: 'Invalid admin credentials' });
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+  // For simplicity, we're doing direct comparison since we're not hashing in register.js
+  // In a production app, you should use bcrypt.compare
+  const isPasswordValid = user.password === password;
   if (!isPasswordValid) return res.status(400).json({ message: 'Invalid admin credentials' });
 
-  const token = jwt.sign({ id: user.id, role: user.role }, 'SECRET_KEY', { expiresIn: '1h' });
-  res.json({ success: true, token });
+  const token = jwt.sign({ id: user.id, role: user.userType }, 'SECRET_KEY', { expiresIn: '1h' });
+  res.json({ success: true, token, userType: user.userType });
 });
 
 // Customer Login API
 router.post('/customer/login', async (req, res) => {
   const { email, password } = req.body;
-  const user = users.find((u) => u.email === email && u.role === 'customer');
+  const users = readUsers();
+  const user = users.find((u) => u.email === email && u.userType === 'customer');
+  
   if (!user) return res.status(400).json({ message: 'Invalid customer credentials' });
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+  // For simplicity, we're doing direct comparison since we're not hashing in register.js
+  // In a production app, you should use bcrypt.compare
+  const isPasswordValid = user.password === password;
   if (!isPasswordValid) return res.status(400).json({ message: 'Invalid customer credentials' });
 
-  const token = jwt.sign({ id: user.id, role: user.role }, 'SECRET_KEY', { expiresIn: '1h' });
-  res.json({ success: true, token });
+  const token = jwt.sign({ id: user.id, role: user.userType }, 'SECRET_KEY', { expiresIn: '1h' });
+  res.json({ success: true, token, userType: user.userType });
 });
 
 module.exports = router;
