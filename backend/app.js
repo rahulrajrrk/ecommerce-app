@@ -1,19 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-// In-memory storage
-const users = [];
-const products = [];
-const orders = [];
-
 // Multer setup for image uploads
 const upload = multer({ dest: "uploads/" });
+
+// Path to user.txt file
+const userFilePath = path.join(__dirname, "data/user.txt");
 
 // --- Root Route ---
 app.get("/", (req, res) => {
@@ -26,35 +26,81 @@ app.get("/", (req, res) => {
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
 
-  const user = users.find((u) => u.email === email && u.password === password);
-  if (user) {
-    res.json({ success: true, message: "Login successful", user });
-  } else {
-    res.status(401).json({ success: false, message: "Invalid credentials" });
-  }
+  // Read user data from user.txt file
+  fs.readFile(userFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading user.txt:", err);
+      res.status(500).json({ success: false, message: "Internal server error" });
+      return;
+    }
+
+    // Parse the file content
+    const users = data
+      .split("\n")
+      .filter((line) => line.trim() !== "") // Remove empty lines
+      .map((line) => JSON.parse(line)); // Parse each line as JSON
+
+    const user = users.find((u) => u.email === email && u.password === password);
+    if (user) {
+      res.json({ success: true, message: "Login successful", user });
+    } else {
+      res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+  });
 });
 
 // Register API
 app.post("/api/register", (req, res) => {
-  const { firstName, lastName, email, password, userType } = req.body;
+  const { name, email, password, userType } = req.body;
 
-  // Check if the user already exists
-  if (users.find((u) => u.email === email)) {
-    res.status(400).json({ success: false, message: "User already exists" });
+  if (!name || !email || !password) {
+    res.status(400).json({ success: false, message: "All fields are required" });
     return;
   }
 
-  // Create a new user
-  const newUser = {
-    id: Date.now(),
-    name: `${firstName} ${lastName}`, // Combine firstName and lastName
-    email,
-    password,
-    userType, // Include userType (customer/admin)
-  };
-  users.push(newUser);
+  // Read the existing users from user.txt
+  fs.readFile(userFilePath, "utf8", (err, data) => {
+    if (err && err.code !== "ENOENT") {
+      console.error("Error reading user.txt:", err);
+      res.status(500).json({ success: false, message: "Internal server error" });
+      return;
+    }
 
-  res.json({ success: true, message: "User registered successfully", user: newUser });
+    // Parse the file content if it exists
+    const users = data
+      ? data
+          .split("\n")
+          .filter((line) => line.trim() !== "") // Remove empty lines
+          .map((line) => JSON.parse(line)) // Parse each line as JSON
+      : [];
+
+    // Check if the user already exists
+    if (users.find((u) => u.email === email)) {
+      res.status(400).json({ success: false, message: "User already exists" });
+      return;
+    }
+
+    // Create a new user object
+    const newUser = {
+      id: Date.now(),
+      name,
+      email,
+      password, // Consider hashing the password for security
+      userType: "customer", // Default to "customer"
+    };
+
+    // Append the new user to the file
+    const userLine = `${JSON.stringify(newUser)}\n`;
+    fs.appendFile(userFilePath, userLine, (err) => {
+      if (err) {
+        console.error("Error writing to user.txt:", err);
+        res.status(500).json({ success: false, message: "Failed to register user" });
+        return;
+      }
+
+      res.json({ success: true, message: "User registered successfully", user: newUser });
+    });
+  });
 });
 
 // --- Product APIs ---
