@@ -5,7 +5,7 @@ function OrderHistory() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch("/api/orders/customer")
+    fetch("https://ecommerce-backend-vjir.onrender.com/api/orders/customer")
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, []);
