@@ -12,7 +12,7 @@ function CustomerLogin() {
     setError(""); // Clear previous errors
 
     try {
-      const response = await fetch("/api/login", {
+      await fetch("https://ecommerce-backend-vjir.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
