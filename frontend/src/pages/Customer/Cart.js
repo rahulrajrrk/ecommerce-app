@@ -5,13 +5,13 @@ function Cart() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    fetch("/api/cart")
+    fetch("https://ecommerce-backend-vjir.onrender.com/api/cart")
       .then((res) => res.json())
       .then((data) => setCartItems(data));
   }, []);
 
   const handleQuantityChange = (itemId, newQuantity) => {
-    fetch(`/api/cart/${itemId}`, {
+    fetch(`https://ecommerce-backend-vjir.onrender.com/api/cart/${itemId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity: newQuantity }),
@@ -27,7 +27,7 @@ function Cart() {
   };
 
   const handleRemoveItem = (itemId) => {
-    fetch(`/api/cart/${itemId}`, {
+    fetch(`https://ecommerce-backend-vjir.onrender.com/api/cart/${itemId}`, {
       method: "DELETE",
     }).then(() => {
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
