@@ -8,12 +8,19 @@ const filePath = path.join(__dirname, "../data/users.txt");
 
 // Endpoint to handle user registration
 router.post("/", (req, res) => {
-  // ... existing code ...
+  const { name, email, password, userType } = req.body;
+
+  // Validate input
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
 
   // Read existing users from the file
   fs.readFile(filePath, "utf8", (readErr, data) => {
     if (readErr && readErr.code !== "ENOENT") {
-      // ... existing code ...
+      // If there's an error reading the file (other than the file not existing)
+      console.error("Error reading users.txt:", readErr);
+      return res.status(500).json({ message: "Internal server error." });
     }
 
     // Parse existing users if the file exists
