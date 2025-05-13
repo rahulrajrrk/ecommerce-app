@@ -14,14 +14,14 @@ function ProductManagement() {
   });
 
   useEffect(() => {
-    fetch("/api/products")
+    fetch("https://ecommerce-backend-vjir.onrender.com/api/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
 
   const handleAddProduct = (e) => {
     e.preventDefault();
-    fetch("/api/products", {
+    fetch("https://ecommerce-backend-vjir.onrender.com/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProduct),
