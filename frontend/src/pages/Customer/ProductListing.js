@@ -9,7 +9,7 @@ function ProductListing() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("/api/products");
+        const response = await fetch("https://ecommerce-backend-vjir.onrender.com/api/products");
         const data = await response.json();
         setProducts(data.products);
         setCategories(data.categories);
